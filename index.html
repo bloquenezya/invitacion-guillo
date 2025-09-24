@@ -86,7 +86,7 @@
       flex: 1 1 auto;
       display: flex;
       justify-content: center; /* centra horizontalmente */
-      align-items: center;     /* centra verticalmente */
+      align-items: center;     /* centrado vertical por defecto */
       width: 100%;
       max-height: calc(100vh - 250px);
       overflow: hidden;
@@ -95,13 +95,13 @@
     .collage img {
       max-width: 100%;
       max-height: 100%;
-      object-fit: contain; /* mantiene proporción y no corta */
+      object-fit: contain;
       border: 3px solid #fff;
       border-radius: 8px;
       box-shadow: 0 3px 6px rgba(0,0,0,0.2);
       opacity: 0;
       transition: opacity 1s ease;
-      position: absolute; /* se superponen para fade */
+      position: absolute; 
       display: block;
     }
     .collage img.active {
@@ -198,41 +198,69 @@
     const music = document.getElementById("birthday-music");
     const playBtn = document.getElementById("play-music");
 
-    // Activar música al pulsar el botón
     playBtn.addEventListener("click", () => {
       music.play();
       playBtn.style.display = "none";
     });
 
-    // Mostrar mensaje de música con fundido
     setTimeout(() => {
       document.getElementById("press-music").style.opacity = 1;
     }, 1000);
 
-    // Ocultar carro y mostrar contenido principal tras 4 segundos
     setTimeout(() => {
       document.getElementById("car-animation").style.display = "none";
       document.getElementById("main-content").style.display = "flex";
       startSlideshow();
     }, 4000);
 
-    // Slideshow de fotos aleatorio, una a la vez
     function startSlideshow() {
       const fotos = Array.from(document.querySelectorAll('.collage img'));
+      const fotosToShow = fotos.filter(img => img.id !== "final-photo"); // excluir actual.JPG
+      let shownIndices = [];
       let previousIndex = -1;
 
       function showNextPhoto() {
+        // ocultar foto anterior
         if (previousIndex >= 0) fotos[previousIndex].classList.remove("active");
+
+        if (shownIndices.length >= fotosToShow.length) {
+          // terminar slideshow mostrando foto actual
+          document.getElementById("final-photo").classList.add("active");
+          return;
+        }
+
+        // seleccionar índice aleatorio no repetido
         let nextIndex;
         do {
-          nextIndex = Math.floor(Math.random() * fotos.length);
-        } while (nextIndex === previousIndex && fotos.length > 1);
-        fotos[nextIndex].classList.add("active");
+          nextIndex = Math.floor(Math.random() * fotosToShow.length);
+        } while (shownIndices.includes(nextIndex));
+        shownIndices.push(nextIndex);
+
+        const img = fotosToShow[nextIndex];
+
+        // alineación según orientación
+        if (img.naturalWidth > img.naturalHeight) {
+          img.style.alignSelf = "flex-start"; // horizontal arriba
+        } else {
+          img.style.alignSelf = "center"; // vertical centrada
+        }
+
+        img.classList.add("active");
         previousIndex = nextIndex;
       }
 
-      showNextPhoto(); // mostrar la primera inmediatamente
-      setInterval(showNextPhoto, 3000); // cambiar cada 3 segundos
+      // esperar a que las imágenes se carguen para leer naturalWidth/naturalHeight
+      fotosToShow.forEach(img => {
+        if (!img.complete) {
+          img.onload = () => {};
+        }
+      });
+
+      showNextPhoto();
+      const interval = setInterval(() => {
+        showNextPhoto();
+        if (shownIndices.length >= fotosToShow.length) clearInterval(interval);
+      }, 3000);
     }
   </script>
 </body>
