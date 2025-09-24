@@ -11,7 +11,11 @@
       padding: 0;
       font-family: "Trebuchet MS", sans-serif;
       background: linear-gradient(135deg, #ffecd2, #fcb69f);
-      min-height: 100vh;
+      height: 100vh;
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
     }
 
     /* Animación del carro */
@@ -39,92 +43,94 @@
     #main-content {
       display: none;
       width: 100%;
-      min-height: 100vh;
+      height: 100vh;
       box-sizing: border-box;
-      padding: 20px;
+      padding: 10px;
     }
 
     .container {
       display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      align-items: flex-start;
-      gap: 20px;
-      width: 100%;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: center;
+      height: 100%;
     }
 
     .text {
-      flex: 1 1 100%;
+      flex: 0 0 auto;
       text-align: center;
+      max-height: 45%;
+      overflow: hidden;
     }
     .text h1 {
-      font-size: 2.5em;
-      margin-bottom: 10px;
+      font-size: 2em;
+      margin: 5px 0;
       color: #b22222;
     }
     .text h2 {
-      font-size: 1.8em;
-      margin-bottom: 20px;
+      font-size: 1.5em;
+      margin: 5px 0 10px;
       color: #333;
     }
     .text p {
-      font-size: 1.2em;
-      margin: 8px 0;
+      font-size: 1em;
+      margin: 4px 0;
       color: #222;
     }
     .button {
-      margin: 6px 5px;
-      padding: 10px 16px;
-      background-color: #28a745;
-      color: white;
-      text-decoration: none;
-      border-radius: 8px;
-      font-size: 1.1em;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-      transition: background-color 0.3s ease;
+      margin: 5px 3px;
+      padding: 8px 12px;
+      font-size: 0.9em;
+      border-radius: 6px;
       display: inline-block;
+      text-decoration: none;
+      color: white;
+      box-shadow: 0 3px 6px rgba(0,0,0,0.2);
+      transition: background 0.3s ease;
     }
-    .button:hover { background-color: #218838; }
+    .button:hover { filter: brightness(0.9); }
 
     .collage {
-      flex: 1 1 100%;
+      flex: 1 1 auto;
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
       align-items: center;
-      gap: 10px;
+      gap: 5px;
+      max-height: 50%;
+      overflow: hidden;
     }
     .collage img {
-      width: 45%;
-      max-width: 200px;
-      border: 4px solid #fff;
-      border-radius: 10px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+      width: 18%;
+      max-height: 100%;
+      object-fit: cover;
+      border: 3px solid #fff;
+      border-radius: 8px;
+      box-shadow: 0 3px 6px rgba(0,0,0,0.2);
       opacity: 0;
-      transform: scale(0.9) rotate(var(--angle, 0deg));
+      transform: scale(0.9) rotate(var(--angle,0deg));
       transition: opacity 1s ease, transform 1s ease;
     }
     .collage img.active {
       opacity: 1;
-      transform: scale(1) rotate(var(--angle, 0deg));
+      transform: scale(1) rotate(var(--angle,0deg));
     }
 
-    /* Responsivo móvil */
+    /* Responsivo móvil: escalar fotos y texto */
     @media (max-width: 768px) {
-      .collage img {
-        width: 80%;
-        max-width: none;
-      }
+      .text h1 { font-size: 1.5em; }
+      .text h2 { font-size: 1.2em; }
+      .text p { font-size: 0.9em; }
+      .button { font-size: 0.8em; padding: 6px 10px; }
+      .collage img { width: 30%; margin: 2px; }
     }
   </style>
 </head>
 <body>
-  <!-- Animación carro -->
   <div id="car-animation">
     <img src="carro1955.png" alt="Carro clásico 1955">
   </div>
 
-  <!-- Contenido principal -->
   <div id="main-content">
     <div class="container">
       <div class="text">
@@ -137,11 +143,10 @@
         <p><b>📍 Lugar:</b> Finca El Ensueño<br>Ingenio Pichichi - Guacarí</p>
         <p><b>📞 R.S.V.P:</b></p>
 
-        <a class="button" href="https://wa.me/573104742090" target="_blank" 
-           style="background-color:#25D366;">
+        <a class="button" href="https://wa.me/573104742090" target="_blank" style="background:#25D366;">
            <i class="fab fa-whatsapp"></i> 3104742090
         </a>
-        <a class="button" href="https://maps.app.goo.gl/JsVn6kfBjePezph37?g_st=iw" target="_blank">
+        <a class="button" href="https://maps.app.goo.gl/JsVn6kfBjePezph37?g_st=iw" target="_blank" style="background:#007bff;">
            📍 Cómo llegar
         </a>
       </div>
@@ -178,30 +183,26 @@
   </div>
 
   <script>
-    // Ocultar carro tras animación
     setTimeout(() => {
       document.getElementById("car-animation").style.display = "none";
-      document.getElementById("main-content").style.display = "block";
+      document.getElementById("main-content").style.display = "flex";
     }, 4000);
 
-    // Rotación aleatoria
-    document.querySelectorAll('.collage img').forEach((img) => {
-      const angle = (Math.random() * 20 - 10) + "deg";
+    document.querySelectorAll('.collage img').forEach((img)=>{
+      const angle = (Math.random()*20-10)+"deg";
       img.style.setProperty("--angle", angle);
     });
 
-    // Slideshow de fotos
     const fotos = document.querySelectorAll('.collage img');
-    let index = 0;
-    function showNextPhoto() {
-      fotos.forEach((img) => img.classList.remove("active"));
+    let index=0;
+    function showNextPhoto(){
+      fotos.forEach(img=>img.classList.remove("active"));
       fotos[index].classList.add("active");
       index++;
-      if(index >= fotos.length){ clearInterval(slideshow); }
+      if(index>=fotos.length) clearInterval(slideshow);
     }
-    const slideshow = setInterval(showNextPhoto, 2000);
+    const slideshow = setInterval(showNextPhoto,2000);
     showNextPhoto();
   </script>
 </body>
 </html>
-
