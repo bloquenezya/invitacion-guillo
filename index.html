@@ -18,6 +18,7 @@
       align-items: center;
     }
 
+    /* Animación del carro */
     #car-animation {
       position: fixed;
       top: 0; left: 0;
@@ -38,6 +39,15 @@
       to { transform: translateX(-100%); }
     }
 
+    #press-music {
+      margin-top: 10px; 
+      font-size: 1.2em; 
+      color: #333; 
+      opacity: 0; 
+      transition: opacity 1.5s ease;
+    }
+
+    /* Contenido principal */
     #main-content {
       display: none;
       width: 100%;
@@ -71,29 +81,27 @@
     }
     .button:hover { filter: brightness(0.9); }
 
+    /* Contenedor de fotos */
     .collage {
       flex: 1 1 auto;
       display: flex;
       justify-content: center;
-      align-items: flex-start;
+      align-items: center; /* centra verticalmente */
       width: 100%;
       max-height: calc(100vh - 250px); /* espacio reservado para texto y botones */
       overflow: hidden;
       position: relative;
     }
     .collage img {
-      position: absolute;
-      top: 0;
-      left: 50%;
-      transform: translateX(-50%);
-      width: auto;
-      height: 100%;
-      object-fit: contain; /* asegura que la foto se ajuste sin deformarse */
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain; /* mantiene proporción y no corta */
       border: 3px solid #fff;
       border-radius: 8px;
       box-shadow: 0 3px 6px rgba(0,0,0,0.2);
       opacity: 0;
       transition: opacity 1s ease;
+      display: block;
     }
     .collage img.active {
       opacity: 1;
@@ -118,15 +126,20 @@
       .text h2 { font-size: 1.2em; }
       .text p { font-size: 0.9em; }
       .button { font-size: 0.8em; padding: 6px 10px; }
-      .collage img { height: 100%; }
+      .collage img { max-height: 100%; max-width: 100%; }
     }
   </style>
 </head>
 <body>
+  <!-- Animación del carro con texto -->
   <div id="car-animation">
-    <img src="carro1955.png" alt="Carro clásico 1955">
+    <div style="text-align: center; position: relative;">
+      <img src="carro1955.png" alt="Carro clásico 1955">
+      <p id="press-music">🎵 Presiona la nota musical</p>
+    </div>
   </div>
 
+  <!-- Contenido principal -->
   <div id="main-content">
     <div class="text">
       <h1>🎉 Luis Guillermo Cabal Cabal 🎉</h1>
@@ -147,7 +160,7 @@
     </div>
 
     <div class="collage">
-      <img src="fotos/foto1.JPG">
+      <img src="fotos/foto1.JPG”>
       <img src="fotos/foto2.JPG">
       <img src="fotos/foto3.JPG">
       <img src="fotos/foto4.JPG">
@@ -176,24 +189,33 @@
     </div>
   </div>
 
-  <audio id="birthday-music" src="feliz_cumple.mp3" loop></audio>
+  <!-- Música -->
+  <audio id="birthday-music" src="musica/feliz_cumpleaños.mp3" loop></audio>
   <button id="play-music" title="Reproducir música">🎵</button>
 
   <script>
     const music = document.getElementById("birthday-music");
     const playBtn = document.getElementById("play-music");
 
+    // Activar música al pulsar el botón
     playBtn.addEventListener("click", () => {
       music.play();
       playBtn.style.display = "none";
     });
 
+    // Mostrar mensaje de música con fundido
+    setTimeout(() => {
+      document.getElementById("press-music").style.opacity = 1;
+    }, 1000);
+
+    // Ocultar carro y mostrar contenido principal tras 4 segundos
     setTimeout(() => {
       document.getElementById("car-animation").style.display = "none";
       document.getElementById("main-content").style.display = "flex";
       startSlideshow();
     }, 4000);
 
+    // Slideshow de fotos aleatorio, una a la vez
     function startSlideshow() {
       const fotos = Array.from(document.querySelectorAll('.collage img'));
       let previousIndex = -1;
