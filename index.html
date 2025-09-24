@@ -14,31 +14,28 @@
       overflow: hidden;
     }
 
+    /* Animación del carro */
     #car-animation {
       position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
       background: #fff;
       display: flex;
       justify-content: center;
       align-items: center;
       z-index: 1000;
     }
-
     #car-animation img {
-      position: relative;
       width: 100%;
       max-height: 100%;
       animation: drive 4s ease-in-out forwards;
     }
-
     @keyframes drive {
       from { transform: translateX(100%); }
       to { transform: translateX(-100%); }
     }
 
+    /* Contenido principal */
     #main-content {
       display: none;
       height: 100vh;
@@ -69,8 +66,7 @@
 
     .collage img {
       position: absolute;
-      top: 50%;
-      left: 50%;
+      top: 50%; left: 50%;
       transform: translate(-50%, -50%) scale(0.9) rotate(var(--angle, 0deg));
       max-width: 80%;
       max-height: 80%;
@@ -80,21 +76,15 @@
       opacity: 0;
       transition: opacity 1s ease, transform 1s ease;
     }
-
     .collage img.active {
       opacity: 1;
       transform: translate(-50%, -50%) scale(1) rotate(var(--angle, 0deg));
       z-index: 10;
       animation: drop 0.6s ease forwards;
     }
-
     @keyframes drop {
-      from {
-        transform: translate(-50%, -120%) scale(0.9) rotate(var(--angle, 0deg));
-      }
-      to {
-        transform: translate(-50%, -50%) scale(1) rotate(var(--angle, 0deg));
-      }
+      from { transform: translate(-50%, -120%) scale(0.9) rotate(var(--angle, 0deg)); }
+      to { transform: translate(-50%, -50%) scale(1) rotate(var(--angle, 0deg)); }
     }
 
     .text {
@@ -112,28 +102,19 @@
       overflow: hidden;
       animation: typing 4s steps(40, end), blink 0.8s step-end infinite;
     }
-
-    @keyframes typing {
-      from { width: 0 }
-      to { width: 100% }
-    }
-
-    @keyframes blink {
-      50% { border-color: transparent }
-    }
+    @keyframes typing { from { width: 0 } to { width: 100% } }
+    @keyframes blink { 50% { border-color: transparent } }
 
     .text h1 {
       font-size: 2.5em;
       margin-bottom: 10px;
       color: #b22222;
     }
-
     .text h2 {
       font-size: 1.8em;
       margin-bottom: 20px;
       color: #333;
     }
-
     .text p {
       font-size: 1.3em;
       margin: 8px 0;
@@ -152,18 +133,21 @@
       transition: background-color 0.3s ease;
       display: inline-block;
     }
+    .button:hover { background-color: #218838; }
 
-    .button:hover {
-      background-color: #218838;
-    }
-
+    /* 📱 En móviles → diseño vertical */
     @media (max-width: 768px) {
       .container {
         flex-direction: column;
       }
-      .collage, .text {
+      .text {
+        order: 1;
         max-width: 100%;
-        height: auto;
+      }
+      .collage {
+        order: 2;
+        max-width: 100%;
+        height: 50%;
       }
       .collage img {
         max-width: 90%;
@@ -173,41 +157,14 @@
   </style>
 </head>
 <body>
+  <!-- Carro animado -->
   <div id="car-animation">
     <img src="carro1955.png" alt="Carro clásico 1955">
   </div>
 
+  <!-- Contenido principal -->
   <div id="main-content">
     <div class="container">
-      <div class="collage">
-        <img src="fotos/foto1.JPG" alt="Foto 1">
-          <img src="fotos/foto2.JPG">
-      <img src="fotos/foto3.JPG">
-      <img src="fotos/foto4.JPG">
-      <img src="fotos/foto5.JPG">
-      <img src="fotos/foto6.JPG">
-      <img src="fotos/foto7.JPG">
-<img src="fotos/foto8.JPG">
-<img src="fotos/foto9.JPG">
-<img src="fotos/foto10.JPG">
-<img src="fotos/foto11.JPG">
-<img src="fotos/foto12.JPG">
-<img src="fotos/foto13.JPG">
-<img src="fotos/foto14.JPG">
-<img src="fotos/foto15.JPG">
-<img src="fotos/foto16.JPG">
-<img src="fotos/foto17.JPG">
-<img src="fotos/foto18.JPG">
-<img src="fotos/foto19.JPG">
-<img src="fotos/foto20.JPG">
-<img src="fotos/foto21.JPG">
-<img src="fotos/foto22.JPG">
-<img src="fotos/foto23.JPG">
-<img src="fotos/foto24.JPG">
-<img src="fotos/foto25.jpg">
-        <img src="actual.JPG" id="final-photo">
-      </div>
-
       <div class="text">
         <h1 class="typewriter">🎉 Luis Guillermo Cabal Cabal 🎉</h1>
         <h2>“ Guillo “</h2>
@@ -227,23 +184,34 @@
            📍 Cómo llegar
         </a>
       </div>
+
+      <div class="collage">
+        <img src="fotos/foto1.jpg">
+        <img src="fotos/foto2.jpg">
+        <img src="fotos/foto3.jpg">
+        <img src="fotos/foto4.jpg">
+        <img src="fotos/foto5.jpg">
+        <img src="actual.JPG" id="final-photo">
+      </div>
     </div>
   </div>
 
   <script>
+    // Ocultar carro tras animación
     setTimeout(() => {
       document.getElementById("car-animation").style.display = "none";
       document.getElementById("main-content").style.display = "flex";
     }, 4000);
 
+    // Rotación aleatoria
     document.querySelectorAll('.collage img').forEach((img) => {
       const angle = (Math.random() * 30 - 15) + "deg";
       img.style.setProperty("--angle", angle);
     });
 
+    // Slideshow de fotos
     const fotos = document.querySelectorAll('.collage img');
     let index = 0;
-
     function showNextPhoto() {
       fotos.forEach((img) => img.classList.remove("active"));
       fotos[index].classList.add("active");
@@ -252,10 +220,8 @@
         clearInterval(slideshow);
       }
     }
-
     const slideshow = setInterval(showNextPhoto, 3000);
     showNextPhoto();
   </script>
 </body>
 </html>
-
