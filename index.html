@@ -18,7 +18,6 @@
       align-items: center;
     }
 
-    /* Animación del carro */
     #car-animation {
       position: fixed;
       top: 0; left: 0;
@@ -39,7 +38,6 @@
       to { transform: translateX(-100%); }
     }
 
-    /* Contenido principal */
     #main-content {
       display: none;
       width: 100%;
@@ -62,21 +60,9 @@
       max-height: 45%;
       overflow: hidden;
     }
-    .text h1 {
-      font-size: 2em;
-      margin: 5px 0;
-      color: #b22222;
-    }
-    .text h2 {
-      font-size: 1.5em;
-      margin: 5px 0 10px;
-      color: #333;
-    }
-    .text p {
-      font-size: 1em;
-      margin: 4px 0;
-      color: #222;
-    }
+    .text h1 { font-size: 2em; margin:5px 0; color:#b22222; }
+    .text h2 { font-size: 1.5em; margin:5px 0 10px; color:#333; }
+    .text p { font-size:1em; margin:4px 0; color:#222; }
     .button {
       margin: 5px 3px;
       padding: 8px 12px;
@@ -93,44 +79,51 @@
     .collage {
       flex: 1 1 auto;
       display: flex;
-      flex-wrap: wrap;
       justify-content: center;
       align-items: center;
-      gap: 5px;
       max-height: 50%;
       overflow: hidden;
     }
     .collage img {
-      width: 18%;
+      width: auto;
+      max-width: 80%;
       max-height: 100%;
-      object-fit: cover;
+      display: none;
       border: 3px solid #fff;
       border-radius: 8px;
       box-shadow: 0 3px 6px rgba(0,0,0,0.2);
-      opacity: 0;
-      transform: scale(0.9) rotate(var(--angle,0deg));
-      transition: opacity 1s ease, transform 1s ease;
-    }
-    .collage img.active {
-      opacity: 1;
-      transform: scale(1) rotate(var(--angle,0deg));
     }
 
-    /* Responsivo móvil: escalar fotos y texto */
+    #play-music {
+      position: fixed;
+      bottom: 10px;
+      right: 10px;
+      background: #25D366;
+      color: white;
+      border: none;
+      padding: 10px;
+      border-radius: 50%;
+      font-size: 1.2em;
+      cursor: pointer;
+      z-index: 1001;
+    }
+
     @media (max-width: 768px) {
       .text h1 { font-size: 1.5em; }
       .text h2 { font-size: 1.2em; }
       .text p { font-size: 0.9em; }
       .button { font-size: 0.8em; padding: 6px 10px; }
-      .collage img { width: 30%; margin: 2px; }
+      .collage img { max-width: 90%; }
     }
   </style>
 </head>
 <body>
+  <!-- Animación carro -->
   <div id="car-animation">
     <img src="carro1955.png" alt="Carro clásico 1955">
   </div>
 
+  <!-- Contenido principal -->
   <div id="main-content">
     <div class="container">
       <div class="text">
@@ -182,27 +175,38 @@
     </div>
   </div>
 
+  <!-- Música de cumpleaños -->
+  <audio id="birthday-music" src="musica/feliz_cumpleaños.mp3" loop></audio>
+  <button id="play-music" title="Reproducir música">🎵</button>
+
   <script>
+    const music = document.getElementById("birthday-music");
+    const playBtn = document.getElementById("play-music");
+
+    playBtn.addEventListener("click", () => {
+      music.play();
+      playBtn.style.display = "none";
+    });
+
     setTimeout(() => {
       document.getElementById("car-animation").style.display = "none";
       document.getElementById("main-content").style.display = "flex";
+      startSlideshow();
     }, 4000);
 
-    document.querySelectorAll('.collage img').forEach((img)=>{
-      const angle = (Math.random()*20-10)+"deg";
-      img.style.setProperty("--angle", angle);
-    });
+    function startSlideshow() {
+      const fotos = Array.from(document.querySelectorAll('.collage img'));
+      let shownIndex = -1;
 
-    const fotos = document.querySelectorAll('.collage img');
-    let index=0;
-    function showNextPhoto(){
-      fotos.forEach(img=>img.classList.remove("active"));
-      fotos[index].classList.add("active");
-      index++;
-      if(index>=fotos.length) clearInterval(slideshow);
+      function showNextPhoto() {
+        if (shownIndex >= 0) fotos[shownIndex].style.display = "none";
+        shownIndex = Math.floor(Math.random() * fotos.length);
+        fotos[shownIndex].style.display = "block";
+      }
+
+      showNextPhoto(); // primera foto
+      setInterval(showNextPhoto, 3000);
     }
-    const slideshow = setInterval(showNextPhoto,2000);
-    showNextPhoto();
   </script>
 </body>
 </html>
