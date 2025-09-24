@@ -161,13 +161,13 @@
     </div>
 
     <div class="collage">
-      <img src="fotos/foto1.JPG”>
+      <img src="fotos/foto1.JPG">
       <img src="fotos/foto2.JPG">
       <img src="fotos/foto3.JPG">
       <img src="fotos/foto4.JPG">
       <img src="fotos/foto5.JPG">
       <img src="fotos/foto6.JPG">
-      <img src="fotos/foto7.JPG">
+        <img src="fotos/foto7.JPG">
 <img src="fotos/foto8.JPG">
 <img src="fotos/foto9.JPG">
 <img src="fotos/foto10.JPG">
@@ -192,21 +192,29 @@
 
   <!-- Música -->
   <audio id="birthday-music" src="feliz_cumple.mp3" loop></audio>
-  <button id="play-music" title="Reproducir música">🎵</button>
+  <button id="play-music" title="Reproducir/Pausar música">🎵</button>
 
   <script>
     const music = document.getElementById("birthday-music");
     const playBtn = document.getElementById("play-music");
 
+    // Botón de música reproducir/pausar
     playBtn.addEventListener("click", () => {
-      music.play();
-      playBtn.style.display = "none";
+      if (music.paused) {
+        music.play();
+        playBtn.textContent = "🔇";
+      } else {
+        music.pause();
+        playBtn.textContent = "🎵";
+      }
     });
 
+    // Mostrar mensaje de música con fundido
     setTimeout(() => {
       document.getElementById("press-music").style.opacity = 1;
     }, 1000);
 
+    // Ocultar carro y mostrar contenido principal tras 4 segundos
     setTimeout(() => {
       document.getElementById("car-animation").style.display = "none";
       document.getElementById("main-content").style.display = "flex";
@@ -251,9 +259,7 @@
 
       // esperar a que las imágenes se carguen para leer naturalWidth/naturalHeight
       fotosToShow.forEach(img => {
-        if (!img.complete) {
-          img.onload = () => {};
-        }
+        if (!img.complete) img.onload = () => {};
       });
 
       showNextPhoto();
