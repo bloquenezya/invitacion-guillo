@@ -95,16 +95,6 @@
       text-align: center;
     }
 
-    .typewriter {
-      display: inline-block;
-      border-right: 3px solid #333;
-      white-space: nowrap;
-      overflow: hidden;
-      animation: typing 4s steps(40, end), blink 0.8s step-end infinite;
-    }
-    @keyframes typing { from { width: 0 } to { width: 100% } }
-    @keyframes blink { 50% { border-color: transparent } }
-
     .text h1 {
       font-size: 2.5em;
       margin-bottom: 10px;
@@ -135,19 +125,19 @@
     }
     .button:hover { background-color: #218838; }
 
-    /* 📱 En móviles → diseño vertical */
+    /* 📱 En móviles → fotos arriba, texto abajo */
     @media (max-width: 768px) {
       .container {
         flex-direction: column;
       }
-      .text {
+      .collage {
         order: 1;
         max-width: 100%;
+        height: 50%;
       }
-      .collage {
+      .text {
         order: 2;
         max-width: 100%;
-        height: 50%;
       }
       .collage img {
         max-width: 90%;
@@ -165,10 +155,19 @@
   <!-- Contenido principal -->
   <div id="main-content">
     <div class="container">
+      <div class="collage">
+        <img src="fotos/foto1.jpg">
+        <img src="fotos/foto2.jpg">
+        <img src="fotos/foto3.jpg">
+        <img src="fotos/foto4.jpg">
+        <img src="fotos/foto5.jpg">
+        <img src="actual.JPG" id="final-photo">
+      </div>
+
       <div class="text">
-        <h1 class="typewriter">🎉 Luis Guillermo Cabal Cabal 🎉</h1>
+        <h1>🎉 Luis Guillermo Cabal Cabal 🎉</h1>
         <h2>“ Guillo “</h2>
-        <p class="typewriter"><strong>¡Cumplo 70 años de Vida!</strong></p>
+        <p><strong>¡Cumplo 70 años de Vida!</strong></p>
         <p>Y quiero celebrarlos contigo 🥳</p>
         <p><b>📅 Fecha:</b> Martes 14 de Octubre</p>
         <p><b>⏰ Hora:</b> 1:00 pm</p>
@@ -183,15 +182,6 @@
         <a class="button" href="https://maps.app.goo.gl/JsVn6kfBjePezph37?g_st=iw" target="_blank">
            📍 Cómo llegar
         </a>
-      </div>
-
-      <div class="collage">
-        <img src="fotos/foto1.jpg">
-        <img src="fotos/foto2.jpg">
-        <img src="fotos/foto3.jpg">
-        <img src="fotos/foto4.jpg">
-        <img src="fotos/foto5.jpg">
-        <img src="actual.JPG" id="final-photo">
       </div>
     </div>
   </div>
