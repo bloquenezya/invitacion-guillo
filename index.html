@@ -85,10 +85,10 @@
     .collage {
       flex: 1 1 auto;
       display: flex;
-      justify-content: center;
-      align-items: center; /* centra verticalmente */
+      justify-content: center; /* centra horizontalmente */
+      align-items: center;     /* centra verticalmente */
       width: 100%;
-      max-height: calc(100vh - 250px); /* espacio reservado para texto y botones */
+      max-height: calc(100vh - 250px);
       overflow: hidden;
       position: relative;
     }
@@ -101,6 +101,7 @@
       box-shadow: 0 3px 6px rgba(0,0,0,0.2);
       opacity: 0;
       transition: opacity 1s ease;
+      position: absolute; /* se superponen para fade */
       display: block;
     }
     .collage img.active {
@@ -230,8 +231,8 @@
         previousIndex = nextIndex;
       }
 
-      showNextPhoto();
-      setInterval(showNextPhoto, 3000);
+      showNextPhoto(); // mostrar la primera inmediatamente
+      setInterval(showNextPhoto, 3000); // cambiar cada 3 segundos
     }
   </script>
 </body>
