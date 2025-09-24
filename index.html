@@ -53,7 +53,7 @@
     .text {
       flex: 0 0 auto;
       text-align: center;
-      margin-bottom: 10px; /* espacio mínimo entre texto y fotos */
+      margin-bottom: 10px;
     }
     .text h1 { font-size: 2em; margin:5px 0; color:#b22222; }
     .text h2 { font-size: 1.5em; margin:5px 0 10px; color:#333; }
@@ -75,18 +75,20 @@
       flex: 1 1 auto;
       display: flex;
       justify-content: center;
-      align-items: flex-start; /* alineado con los botones */
-      max-height: calc(100% - 50%); /* ocupa el espacio restante */
+      align-items: flex-start;
+      width: 100%;
+      max-height: calc(100vh - 250px); /* espacio reservado para texto y botones */
       overflow: hidden;
       position: relative;
     }
     .collage img {
       position: absolute;
       top: 0;
+      left: 50%;
+      transform: translateX(-50%);
       width: auto;
-      max-width: 80%;
-      max-height: 100%;
-      object-fit: cover;
+      height: 100%;
+      object-fit: contain; /* asegura que la foto se ajuste sin deformarse */
       border: 3px solid #fff;
       border-radius: 8px;
       box-shadow: 0 3px 6px rgba(0,0,0,0.2);
@@ -116,7 +118,7 @@
       .text h2 { font-size: 1.2em; }
       .text p { font-size: 0.9em; }
       .button { font-size: 0.8em; padding: 6px 10px; }
-      .collage img { max-width: 90%; }
+      .collage img { height: 100%; }
     }
   </style>
 </head>
@@ -151,25 +153,6 @@
       <img src="fotos/foto4.JPG">
       <img src="fotos/foto5.JPG">
       <img src="fotos/foto6.JPG">
-      <img src="fotos/foto7.JPG">
-<img src="fotos/foto8.JPG">
-<img src="fotos/foto9.JPG">
-<img src="fotos/foto10.JPG">
-<img src="fotos/foto11.JPG">
-<img src="fotos/foto12.JPG">
-<img src="fotos/foto13.JPG">
-<img src="fotos/foto14.JPG">
-<img src="fotos/foto15.JPG">
-<img src="fotos/foto16.JPG">
-<img src="fotos/foto17.JPG">
-<img src="fotos/foto18.JPG">
-<img src="fotos/foto19.JPG">
-<img src="fotos/foto20.JPG">
-<img src="fotos/foto21.JPG">
-<img src="fotos/foto22.JPG">
-<img src="fotos/foto23.JPG">
-<img src="fotos/foto24.JPG">
-<img src="fotos/foto25.JPG">
       <img src="actual.JPG" id="final-photo">
     </div>
   </div>
