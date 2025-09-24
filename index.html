@@ -167,7 +167,7 @@
       <img src="fotos/foto4.JPG">
       <img src="fotos/foto5.JPG">
       <img src="fotos/foto6.JPG">
-        <img src="fotos/foto7.JPG">
+  <img src="fotos/foto7.JPG">
 <img src="fotos/foto8.JPG">
 <img src="fotos/foto9.JPG">
 <img src="fotos/foto10.JPG">
@@ -224,6 +224,7 @@
     function startSlideshow() {
       const fotos = Array.from(document.querySelectorAll('.collage img'));
       const fotosToShow = fotos.filter(img => img.id !== "final-photo"); // excluir actual.JPG
+      const finalPhoto = document.getElementById("final-photo");
       let shownIndices = [];
       let previousIndex = -1;
 
@@ -231,9 +232,9 @@
         // ocultar foto anterior
         if (previousIndex >= 0) fotos[previousIndex].classList.remove("active");
 
+        // si ya se mostraron todas las fotos aleatorias
         if (shownIndices.length >= fotosToShow.length) {
-          // terminar slideshow mostrando foto actual
-          document.getElementById("final-photo").classList.add("active");
+          finalPhoto.classList.add("active"); // aseguramos que se muestre actual.JPG
           return;
         }
 
@@ -257,15 +258,18 @@
         previousIndex = nextIndex;
       }
 
-      // esperar a que las imágenes se carguen para leer naturalWidth/naturalHeight
+      // esperar a que las imágenes se carguen
       fotosToShow.forEach(img => {
         if (!img.complete) img.onload = () => {};
       });
 
-      showNextPhoto();
+      showNextPhoto(); // primera foto
       const interval = setInterval(() => {
         showNextPhoto();
-        if (shownIndices.length >= fotosToShow.length) clearInterval(interval);
+        if (shownIndices.length >= fotosToShow.length) {
+          clearInterval(interval);
+          finalPhoto.classList.add("active"); // mostrar actual.JPG al final
+        }
       }, 3000);
     }
   </script>
