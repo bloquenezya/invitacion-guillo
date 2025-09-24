@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Invitación 70 años - Guillo</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: "Trebuchet MS", sans-serif;
+      background: linear-gradient(135deg, #ffecd2, #fcb69f);
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    #car-animation {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+    }
+
+    #car-animation img {
+      position: relative;
+      width: 100%;
+      max-height: 100%;
+      animation: drive 4s ease-in-out forwards;
+    }
+
+    @keyframes drive {
+      from { transform: translateX(100%); }
+      to { transform: translateX(-100%); }
+    }
+
+    #main-content {
+      display: none;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      height: 100%;
+      padding: 20px;
+      box-sizing: border-box;
+    }
+
+    .collage {
+      position: relative;
+      flex: 1;
+      min-width: 300px;
+      max-width: 50%;
+      height: 80%;
+      overflow: hidden;
+    }
+
+    .collage img {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) scale(0.9) rotate(var(--angle, 0deg));
+      max-width: 80%;
+      max-height: 80%;
+      border: 6px solid #fff;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+      border-radius: 12px;
+      opacity: 0;
+      transition: opacity 1s ease, transform 1s ease;
+    }
+
+    .collage img.active {
+      opacity: 1;
+      transform: translate(-50%, -50%) scale(1) rotate(var(--angle, 0deg));
+      z-index: 10;
+      animation: drop 0.6s ease forwards;
+    }
+
+    @keyframes drop {
+      from {
+        transform: translate(-50%, -120%) scale(0.9) rotate(var(--angle, 0deg));
+      }
+      to {
+        transform: translate(-50%, -50%) scale(1) rotate(var(--angle, 0deg));
+      }
+    }
+
+    .text {
+      flex: 1;
+      min-width: 300px;
+      max-width: 50%;
+      padding: 20px;
+      text-align: center;
+    }
+
+    .typewriter {
+      display: inline-block;
+      border-right: 3px solid #333;
+      white-space: nowrap;
+      overflow: hidden;
+      animation: typing 4s steps(40, end), blink 0.8s step-end infinite;
+    }
+
+    @keyframes typing {
+      from { width: 0 }
+      to { width: 100% }
+    }
+
+    @keyframes blink {
+      50% { border-color: transparent }
+    }
+
+    .text h1 {
+      font-size: 2.5em;
+      margin-bottom: 10px;
+      color: #b22222;
+    }
+
+    .text h2 {
+      font-size: 1.8em;
+      margin-bottom: 20px;
+      color: #333;
+    }
+
+    .text p {
+      font-size: 1.3em;
+      margin: 8px 0;
+      color: #222;
+    }
+
+    .button {
+      margin: 6px auto;
+      padding: 10px 16px;
+      background-color: #28a745;
+      color: white;
+      text-decoration: none;
+      border-radius: 8px;
+      font-size: 1.1em;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+      transition: background-color 0.3s ease;
+      display: inline-block;
+    }
+
+    .button:hover {
+      background-color: #218838;
+    }
+
+    @media (max-width: 768px) {
+      .container {
+        flex-direction: column;
+      }
+      .collage, .text {
+        max-width: 100%;
+        height: auto;
+      }
+      .collage img {
+        max-width: 90%;
+        max-height: 90%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div id="car-animation">
+    <img src="carro1955.png" alt="Carro clásico 1955">
+  </div>
+
+  <div id="main-content">
+    <div class="container">
+      <div class="collage">
+        <img src="fotos/foto1.jpg">
+          <img src="fotos/foto2.jpg">
+      <img src="fotos/foto3.jpg">
+      <img src="fotos/foto4.jpg">
+      <img src="fotos/foto5.jpg">
+      <img src="fotos/foto6.jpg">
+      <img src="fotos/foto7.jpg">
+<img src="fotos/foto8.jpg">
+<img src="fotos/foto9.jpg">
+<img src="fotos/foto10.jpg">
+<img src="fotos/foto11.jpg">
+<img src="fotos/foto12.jpg">
+<img src="fotos/foto13.jpg">
+<img src="fotos/foto14.jpg">
+<img src="fotos/foto15.jpg">
+<img src="fotos/foto16.jpg">
+<img src="fotos/foto17.jpg">
+<img src="fotos/foto18.jpg">
+<img src="fotos/foto19.jpg">
+<img src="fotos/foto20.jpg">
+<img src="fotos/foto21.jpg">
+<img src="fotos/foto22.jpg">
+<img src="fotos/foto23.jpg">
+<img src="fotos/foto24.jpg">
+<img src="fotos/foto25.jpg">
+        <img src="actual.JPG" id="final-photo">
+      </div>
+
+      <div class="text">
+        <h1 class="typewriter">🎉 Luis Guillermo Cabal Cabal 🎉</h1>
+        <h2>“ Guillo “</h2>
+        <p class="typewriter"><strong>¡Cumplo 70 años de Vida!</strong></p>
+        <p>Y quiero celebrarlos contigo 🥳</p>
+        <p><b>📅 Fecha:</b> Martes 14 de Octubre</p>
+        <p><b>⏰ Hora:</b> 1:00 pm</p>
+        <p><b>📍 Lugar:</b> Finca El Ensueño<br>Ingenio Pichichi - Guacarí</p>
+        <p><b>📞 R.S.V.P:</b></p>
+
+        <a class="button" href="https://wa.me/573104742090" target="_blank" 
+           style="background-color:#25D366; margin-bottom:6px;">
+           <i class="fab fa-whatsapp"></i> 3104742090
+        </a>
+
+        <a class="button" href="https://maps.app.goo.gl/JsVn6kfBjePezph37?g_st=iw" target="_blank">
+           📍 Cómo llegar
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    setTimeout(() => {
+      document.getElementById("car-animation").style.display = "none";
+      document.getElementById("main-content").style.display = "flex";
+    }, 4000);
+
+    document.querySelectorAll('.collage img').forEach((img) => {
+      const angle = (Math.random() * 30 - 15) + "deg";
+      img.style.setProperty("--angle", angle);
+    });
+
+    const fotos = document.querySelectorAll('.collage img');
+    let index = 0;
+
+    function showNextPhoto() {
+      fotos.forEach((img) => img.classList.remove("active"));
+      fotos[index].classList.add("active");
+      index++;
+      if (index >= fotos.length) {
+        clearInterval(slideshow);
+      }
+    }
+
+    const slideshow = setInterval(showNextPhoto, 3000);
+    showNextPhoto();
+  </script>
+</body>
+</html>
