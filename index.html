@@ -8,36 +8,30 @@
   <style>
     body {
       margin: 0;
-      padding: 8px;               /* separa contenido del borde */
+      padding: 0;
       font-family: "Trebuchet MS", sans-serif;
-      background: #fff;           /* fondo blanco */
-      border: 8px solid #0056b3;  /* borde azul */
+      background: #fff;
+      border: 8px solid #0056b3; /* borde azul alrededor */
       height: 100vh;
-      overflow: hidden;
       box-sizing: border-box;
+      overflow: hidden;
     }
 
     /* Pantalla inicial con carro */
     #car-animation {
       position: fixed;
-      top: 8px; left: 8px;   /* respeta borde azul */
-      width: calc(100% - 16px);
-      height: calc(100% - 16px);
+      top: 0; left: 0;
+      width: 100%; height: 100%;
       background: #fff;
       display: flex;
-      flex-direction: column;
-      justify-content: flex-end;  /* 🔽 baja la imagen */
+      justify-content: center;
       align-items: center;
-      padding-bottom: 60px;       /* espacio para texto */
       z-index: 1000;
     }
     #car-animation img {
-      max-height: 65%;   /* más pequeño para dejar aire al texto */
-      max-width: 80%;
-      width: auto;
-      height: auto;
-      display: block;
-      margin: 0 auto;
+      max-height: 80%;
+      max-width: 85%;
+      transform: translateY(-50%); /* subir 50% */
     }
     #press-music {
       margin-top: 12px; 
@@ -48,83 +42,75 @@
       text-align: center;
     }
 
-    /* Botón de música */
-    #play-music {
-      position: fixed;
-      bottom: 25px; right: 25px; /* se corre un poco por el borde */
-      background: #0056b3;
-      color: white;
-      border: none;
-      border-radius: 50%;
-      width: 55px; height: 55px;
-      font-size: 1.4em;
-      cursor: pointer;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-      z-index: 2000;
-    }
-    #play-music:hover { background: #003d80; }
-
     /* Contenido principal */
     #main-content {
       display: none;
-      height: calc(100vh - 16px);  /* respeta borde */
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      padding: 10px;
-      text-align: center;
+      height: 100vh;
+      overflow-y: auto;
+      padding: 20px;
       box-sizing: border-box;
+      text-align: center;
     }
 
     .text h1 {
       font-size: 2em;
-      margin: 8px 0;
+      margin-bottom: 10px;
       color: #b22222;
     }
     .text h2 {
-      font-size: 1.4em;
-      margin-bottom: 12px;
+      font-size: 1.6em;
+      margin-bottom: 15px;
       color: #333;
     }
     .text p {
-      font-size: 1.1em;
-      margin: 5px 0;
+      font-size: 1.2em;
+      margin: 6px 0;
       color: #222;
     }
 
     .button {
-      margin: 5px auto;
+      margin: 6px auto;
       padding: 10px 16px;
       background-color: #28a745;
       color: white;
       text-decoration: none;
       border-radius: 8px;
-      font-size: 1em;
+      font-size: 1.1em;
       box-shadow: 0 4px 10px rgba(0,0,0,0.2);
       transition: background-color 0.3s ease;
       display: inline-block;
     }
     .button:hover { background-color: #218838; }
 
-    /* Fotos */
-    .photo-container {
-      flex: 1;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      max-height: 45%;
-      margin-top: 10px;
+    /* 🎵 Botón de música */
+    #music-control {
+      position: fixed;
+      top: 12px;
+      right: 12px;
+      background: #0056b3;
+      color: white;
+      border: none;
+      padding: 12px;
+      border-radius: 50%;
+      font-size: 1.3em;
+      cursor: pointer;
+      z-index: 2000;
     }
-    .photo-container img {
-      max-width: 100%;
-      max-height: 100%;
-      object-fit: contain;
+
+    /* Collage de fotos debajo de botones */
+    .collage {
+      margin-top: 15px; /* casi pegado a los botones */
+      text-align: center;
+    }
+    .collage img {
+      max-width: 90%;
+      max-height: 300px;
+      border: 5px solid #0056b3; /* marco azul */
+      border-radius: 12px;
       display: none;
-      border-radius: 10px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+      margin: 8px auto;
     }
-    .photo-container img.active {
+    .collage img.active {
       display: block;
     }
   </style>
@@ -138,9 +124,11 @@
     </div>
   </div>
 
-  <!-- Música -->
-  <audio id="birthday-music" src="feliz_cumple.mp3" loop></audio>
-  <button id="play-music" title="Reproducir/Pausar música">🎵</button>
+  <!-- Control de música -->
+  <button id="music-control"><i class="fas fa-music"></i></button>
+  <audio id="bg-music" loop>
+    <source src="felizcumple.mp3" type="audio/mpeg">
+  </audio>
 
   <!-- Contenido principal -->
   <div id="main-content">
@@ -162,81 +150,79 @@
       <a class="button" href="https://maps.app.goo.gl/JsVn6kfBjePezph37?g_st=iw" target="_blank">
          📍 Cómo llegar
       </a>
-    </div>
 
-    <!-- Fotos -->
-    <div class="photo-container">
-     <img src="fotos/foto1.JPG”>
-      <img src="fotos/foto2.JPG">
-      <img src="fotos/foto3.JPG">
-      <img src="fotos/foto4.JPG">
-      <img src="fotos/foto5.JPG">
-      <img src="fotos/foto6.JPG">
-      <img src="fotos/foto7.JPG">
-<img src="fotos/foto8.JPG">
-<img src="fotos/foto9.JPG">
-<img src="fotos/foto10.JPG">
-<img src="fotos/foto12.JPG">
-<img src="fotos/foto13.JPG">
-<img src="fotos/foto14.JPG">
-<img src="fotos/foto15.JPG">
-<img src="fotos/foto16.JPG">
-<img src="fotos/foto17.JPG">
-<img src="fotos/foto18.JPG">
-<img src="fotos/foto19.JPG">
-<img src="fotos/foto20.JPG">
-<img src="fotos/foto21.JPG">
-<img src="fotos/foto22.JPG">
-<img src="fotos/foto23.JPG">
-<img src="fotos/foto24.JPG">
-<img src="fotos/foto25.JPG">
-      <img src="actual.JPG" alt="Foto actual" id="final-photo">
+      <!-- 📸 Fotos con marco azul -->
+      <div class="collage">
+        <img src="fotos/foto1.JPG">
+        <img src="fotos/foto2.JPG">
+        <img src="fotos/foto3.JPG">
+        <img src="fotos/foto4.JPG">
+        <img src="fotos/foto5.JPG">
+        <img src="fotos/foto6.JPG">
+        <img src="fotos/foto7.JPG">
+        <img src="fotos/foto8.JPG">
+        <img src="fotos/foto9.JPG">
+        <img src="fotos/foto10.JPG">
+        <img src="fotos/foto11.JPG">
+        <img src="fotos/foto12.JPG">
+        <img src="fotos/foto13.JPG">
+        <img src="fotos/foto14.JPG">
+        <img src="fotos/foto15.JPG">
+        <img src="fotos/foto16.JPG">
+        <img src="fotos/foto17.JPG">
+        <img src="fotos/foto18.JPG">
+        <img src="fotos/foto19.JPG">
+        <img src="fotos/foto20.JPG">
+        <img src="fotos/foto21.JPG">
+        <img src="fotos/foto22.JPG">
+        <img src="fotos/foto23.JPG">
+        <img src="fotos/foto24.JPG">
+        <img src="fotos/foto25.JPG">
+        <img src="actual.JPG" id="final-photo">
+      </div>
     </div>
   </div>
 
   <script>
-    const music = document.getElementById("birthday-music");
-    const playBtn = document.getElementById("play-music");
-    const pressMusic = document.getElementById("press-music");
+    // Ocultar carro tras animación
+    setTimeout(() => {
+      document.getElementById("car-animation").style.display = "none";
+      document.getElementById("main-content").style.display = "block";
+    }, 4000);
 
-    // Botón música: reproducir/pausar
-    playBtn.addEventListener("click", () => {
-      if (music.paused) {
-        music.play();
-        playBtn.textContent = "🔇";
-      } else {
+    // Mostrar texto "Presiona la nota musical"
+    setTimeout(() => {
+      document.getElementById("press-music").style.opacity = 1;
+    }, 2000);
+
+    // Control de música
+    const music = document.getElementById("bg-music");
+    const musicBtn = document.getElementById("music-control");
+    let playing = false;
+    musicBtn.addEventListener("click", () => {
+      if (playing) {
         music.pause();
-        playBtn.textContent = "🎵";
+        playing = false;
+      } else {
+        music.play();
+        playing = true;
       }
     });
 
-    // Mostrar contenido después de 4s
-    setTimeout(() => {
-      document.getElementById("car-animation").style.display = "none";
-      document.getElementById("main-content").style.display = "flex";
-    }, 4000);
-
-    // Fotos secuenciales
-    const fotos = document.querySelectorAll(".photo-container img");
+    // Slideshow de fotos
+    const fotos = document.querySelectorAll('.collage img');
     let index = 0;
-
     function showNextPhoto() {
       fotos.forEach((img) => img.classList.remove("active"));
       fotos[index].classList.add("active");
       index++;
       if (index >= fotos.length) {
         clearInterval(slideshow);
-        fotos[fotos.length - 1].classList.add("active"); // fija actual.JPG
+        document.getElementById("final-photo").classList.add("active");
       }
     }
-
     const slideshow = setInterval(showNextPhoto, 3000);
     showNextPhoto();
-
-    // Mostrar texto "Presiona la nota musical" después de 2s
-    setTimeout(() => {
-      pressMusic.style.opacity = 1;
-    }, 2000);
   </script>
 </body>
 </html>
